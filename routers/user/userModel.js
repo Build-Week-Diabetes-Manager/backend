@@ -1,6 +1,6 @@
 
 //IMPORTS ⬇︎
-const db = require( '../data/dbConfig' );
+const db = require( '../../data/dbConfig' );
 
 //EXPORTS ⬇︎
 module.exports = {
