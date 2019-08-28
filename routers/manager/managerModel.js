@@ -34,7 +34,7 @@ function getBy(filter) {
 
 function add(manage) {
     return db('manage')
-    .insert(manage)
+    .insert(manage, "id")
     .then(ids => {
         return getById(ids[0])
     })
