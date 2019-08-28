@@ -32,8 +32,8 @@ function getBy(filter) {
 }
 
 
-async function add(manage) {
-    const [id] = db('manage')
+function add(manage) {
+    return db('manage')
     .insert(manage, "id")
     .then(ids => {
         return getById(ids[0])
