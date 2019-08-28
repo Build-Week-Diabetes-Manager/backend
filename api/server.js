@@ -19,7 +19,7 @@ server.use( morgan('dev'));
 server.use( cors());
 
 //APPLYING ROUTES ⬇︎
- server.use( '/api/manager' , managerRoute , restricted );
+ server.use( '/api/manager'  , restricted , managerRoute);
  server.use( '/api/users' , userRoute );
 
 //SANITY CHECk ⬇︎

@@ -1,18 +1,18 @@
 const express = require( 'express' );
 const db = require("./managerModel");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 const router = express.Router();
+const axios = require("axios");
 
 router.get("/manage", (req, res) => {
   db.get()
-    .then(user => {
-      res.status(200).json(user);
+    .then(manage => {
+      res.status(200).json(manage);
     })
     .catch(err => {
       res.status(500).json({ message: "there was an error" });
     });
 });
+
 
 router.post("/manage", (req, res) => {
   let user = req.body;
