@@ -1,4 +1,4 @@
-const express = require( 'express' );
+const express = require("express");
 const db = require("./managerModel");
 const router = express.Router();
 const axios = require("axios");
@@ -12,7 +12,6 @@ router.get("/manage", (req, res) => {
       res.status(500).json({ message: "there was an error" });
     });
 });
-
 
 router.post("/manage", (req, res) => {
   let user = req.body;
@@ -28,12 +27,29 @@ router.post("/manage", (req, res) => {
     });
 });
 
+router.post("/manage/ds", (req, res) => {
+  const requestOptions = {
+    headers: { "Content-Type": "application/json" }
+  };
+  //console.log(req.body)
+
+  axios
+    .post("https://diabetes-manager-app.herokuapp.com/", req.body, requestOptions)
+    .then(({data}) => {
+      console.log(data)
+      res.status(200).json(data);
+    })
+    .catch(err => {
+      res.status(500).json({ message: "Error Fetching data", error: err });
+    });
+});
+
 router.delete("/manage/:id", (req, res) => {
   let id = req.params.id;
 
   db.remove(id)
     .then(users => {
-      res.status(200).json({message: "it was removed"});
+      res.status(200).json({ message: "it was removed" });
     })
     .catch(err => {
       res.status(500).json({
@@ -45,7 +61,7 @@ router.delete("/manage/:id", (req, res) => {
 router.put("/manage/:id", (req, res) => {
   const id = req.params.id;
   const actionbod = req.body;
-  console.log(id)
+  console.log(id);
   db.update(id, actionbod)
     .then(updated => {
       res.status(200).json(updated);
