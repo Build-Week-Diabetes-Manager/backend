@@ -13,11 +13,11 @@ router.get("/manage", (req, res) => {
 });
 
 router.post("/manage", (req, res) => {
-  let user = req.body;
+  let reqBody = req.body;
 
-  db.add(user)
-    .then(info => {
-      res.status(201).json({...info});
+  db.add(reqBody)
+    .then(info=> {
+      res.status(201).json(info);
     })
     .catch(err => {
       res.status(500).json(error);
