@@ -18,7 +18,7 @@ GET req to see individual user - /api/users/users - Allows front end access to u
 
 ------------------------------------------------
 
-# GET/POST/
+# GET/POST
 https://diabetesmanager.herokuapp.com/api/manager/manage
 
 # POST/DELETE/PUT
