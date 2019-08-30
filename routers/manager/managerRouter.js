@@ -2,7 +2,6 @@ const express = require("express");
 const db = require("./managerModel");
 const router = express.Router();
 const axios = require("axios");
-
 router.get("/manage", (req, res) => {
   db.get()
     .then(manage => {
@@ -27,21 +26,31 @@ router.post("/manage", (req, res) => {
     });
 });
 
-router.post("/manage/ds", (req, res) => {
+ router.post("/manage/ds/:id", async (req, res) => {
+  const id = req.params.id;
+  console.log('id',id);
   const requestOptions = {
     headers: { "Content-Type": "application/json" }
   };
-  //console.log(req.body)
+  console.log('requestOptions',requestOptions);
 
-  axios
-    .post("https://diabetes-manager-app.herokuapp.com/", req.body, requestOptions)
-    .then(({data}) => {
-      console.log(data)
-      res.status(200).json(data);
-    })
-    .catch(err => {
-      res.status(500).json({ message: "Error Fetching data", error: err });
-    });
+
+ try{ 
+  let userbyid = await db.getByUserId(id)
+  console.log('userbyid',userbyid);
+  
+  let data = await axios
+  .post("http://diabetes-manager-app.herokuapp.com/", userbyid , requestOptions)
+  console.dir(data.data);
+    res.status(200).json(data.data);
+ }
+ catch(err){
+   console.log(err);
+    res.status(500).json(err)
+ }
+  //console.log(req.body)
+     
+ 
 });
 
 router.delete("/manage/:id", (req, res) => {

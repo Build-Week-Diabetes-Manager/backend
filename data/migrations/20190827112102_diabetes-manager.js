@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
       manage.increments();
       manage.datetime("timestamp").notNullable();
       manage.integer("code").notNullable();
-      manage.integer("value").notNullable();
+      manage.float("value").notNullable();
       manage.integer("user_id").unsigned();
       manage
         .foreign("user_id")

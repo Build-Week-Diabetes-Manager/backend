@@ -18,6 +18,7 @@ function get() {
 };
 
 function getByUserId(user_id) {
+    // console.log(user)
     return db('manage').where({ user_id })
 }
     
