@@ -54,6 +54,16 @@ router.post("/login", (req, res) => {
   }
 });
 
+router.get("/users", (req, res) => {
+  Users.get()
+    .then(manage => {
+      res.status(200).json(manage);
+    })
+    .catch(err => {
+      res.status(500).json({ message: "there was an error" });
+    });
+});
+
 //GENERATING USERS TOKEN ⬇︎
 function generateToken(user) {
   const payload = {

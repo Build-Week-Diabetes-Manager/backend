@@ -13,10 +13,10 @@ const managerRoute = require( '../routers/manager/managerRouter' );
 const userRoute = require( '../routers/auth/authRouter' );
 
 //GLOBAL MIDDLEWARE ⬇︎
-server.use( express.json());
 server.use( helmet());
-server.use( morgan('dev'));
 server.use( cors());
+server.use( express.json());
+server.use( morgan('dev'));
 
 //APPLYING ROUTES ⬇︎
  server.use( '/api/manager'  , restricted , managerRoute);
