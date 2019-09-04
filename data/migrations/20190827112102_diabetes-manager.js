@@ -1,7 +1,7 @@
 exports.up = function(knex, Promise) {
     return knex.schema.createTable("manage", manage => {
       manage.increments();
-      manage.datetime("timestamp").notNullable();
+      manage.string("timestamp").notNullable();
       manage.integer("code").notNullable();
       manage.float("value").notNullable();
       manage.integer("user_id").unsigned();
