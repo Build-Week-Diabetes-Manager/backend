@@ -26,20 +26,20 @@ router.post("/manage", (req, res) => {
 
  router.post("/manage/ds/:id", async (req, res) => {
   const id = req.params.id;
-  console.log('id',id);
+  // console.log('id',id);
   const requestOptions = {
     headers: { "Content-Type": "application/json" }
   };
-  console.log('requestOptions',requestOptions);
+  // console.log('requestOptions',requestOptions);
 
 
  try{ 
   let userbyid = await db.getByUserId(id)
-  console.log('userbyid',userbyid);
+  // console.log('userbyid',userbyid);
   
   let data = await axios
   .post("http://diabetes-manager-app.herokuapp.com/", userbyid , requestOptions)
-  console.dir(data.data);
+  console.lod("diabetesdata",data.data);
     res.status(200).json(data.data);
  }
  catch(err){
