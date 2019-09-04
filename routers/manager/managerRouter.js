@@ -39,7 +39,7 @@ router.post("/manage", (req, res) => {
   
   let data = await axios
   .post("http://diabetes-manager-app.herokuapp.com/", userbyid , requestOptions)
-  console.lod("diabetesdata",data.data);
+  console.log("diabetesdata",data.data);
     res.status(200).json(data.data);
  }
  catch(err){
