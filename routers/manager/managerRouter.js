@@ -16,7 +16,7 @@ router.post("/manage", (req, res) => {
   let reqBody = req.body;
 
   db.add(reqBody)
-    .then(info=> {
+    .then(info => {
       res.status(201).json(info);
     })
     .catch(err => {
@@ -24,7 +24,7 @@ router.post("/manage", (req, res) => {
     });
 });
 
- router.post("/manage/ds/:id", async (req, res) => {
+router.get("/manage/ds/:id", async (req, res) => {
   const id = req.params.id;
   // console.log('id',id);
   const requestOptions = {
@@ -32,27 +32,27 @@ router.post("/manage", (req, res) => {
   };
   // console.log('requestOptions',requestOptions);
 
+  try {
+    const userbyid = await db.getByUserId(id);
 
- try{ 
-  let userbyid = await db.getByUserId(id)
-  // console.log('userbyid',userbyid);
+    const data = await axios
+      .post(
+        "http://diabetes-manager-app.herokuapp.com/",
+        userbyid,
+        requestOptions
+      );
   
-  let data = await axios
-  .post("http://diabetes-manager-app.herokuapp.com/", userbyid , requestOptions)
-  console.log("diabetesdata",data.data);
+    console.log("diabetesdata", data);
     res.status(200).json(data.data);
- }
- catch(err){
-   console.log(err);
-    res.status(500).json(err)
- }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
   //console.log(req.body)
-     
- 
 });
 
 router.delete("/manage/:id", (req, res) => {
-  let id = req.params.id;
+  const id = req.params.id;
 
   db.remove(id)
     .then(users => {
