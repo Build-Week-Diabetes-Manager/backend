@@ -27,5 +27,6 @@ server.get( '/' , ( req , res ) => {
  server.use( '/api/manager'  , restricted , managerRoute);
  server.use( '/api/users' , userRoute );
 
+
 //EXPORTS ⬇︎
 module.exports = server;
