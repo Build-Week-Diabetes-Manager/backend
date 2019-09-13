@@ -2,6 +2,7 @@ const express = require("express");
 const db = require("./managerModel");
 const router = express.Router();
 const axios = require("axios");
+
 router.get("/manage", (req, res) => {
   db.get()
     .then(manage => {
@@ -24,6 +25,17 @@ router.post("/manage", (req, res) => {
     });
 });
 
+router.get("/manage/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const info = await db.getByUserId(id);
+    res.status(200).json(info);
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
+});
+
 router.get("/manage/ds/:id", async (req, res) => {
   const id = req.params.id;
   // console.log('id',id);
@@ -35,13 +47,12 @@ router.get("/manage/ds/:id", async (req, res) => {
   try {
     const userbyid = await db.getByUserId(id);
 
-    const data = await axios
-      .post(
-        "http://diabetes-manager-app.herokuapp.com/",
-        userbyid,
-        requestOptions
-      );
-  
+    const data = await axios.post(
+      "http://diabetes-manager-app.herokuapp.com/",
+      userbyid,
+      requestOptions
+    );
+
     console.log("diabetesdata", data);
     res.status(200).json(data.data);
   } catch (err) {
