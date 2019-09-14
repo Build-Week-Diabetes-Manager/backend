@@ -46,6 +46,8 @@ router.get("/manage/ds/:id", async (req, res) => {
 
   try {
     const userbyid = await db.getByUserId(id);
+    const userbyidminusid = userbyid.map(data => delete data["user_id"]);
+    console.log("userbyid", userbyid);
 
     const data = await axios.post(
       "http://diabetes-manager-app.herokuapp.com/",
