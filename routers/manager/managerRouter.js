@@ -46,7 +46,7 @@ router.get("/manage/ds/:id", async (req, res) => {
 
   try {
     const userbyid = await db.getByUserId(id);
-    const userbyidminusid = userbyid.map(data => delete data["user_id"]);
+    const userbyidminusid = userbyid.map(data => delete data.user_id);
     console.log("userbyid", userbyid);
 
     const data = await axios.post(
@@ -59,7 +59,7 @@ router.get("/manage/ds/:id", async (req, res) => {
     res.status(200).json(data.data);
   } catch (err) {
     console.log(err);
-    res.status(500).json(err);
+    res.status(500).json(err.message);
   }
   //console.log(req.body)
 });
