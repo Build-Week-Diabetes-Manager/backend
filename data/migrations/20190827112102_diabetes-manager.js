@@ -1,6 +1,7 @@
 exports.up = function(knex, Promise) {
     return knex.schema.createTable("manage", manage => {
       manage.increments();
+      //Any benefit to use datetime type instead of string?
       manage.string("timestamp").notNullable();
       manage.integer("code").notNullable();
       manage.float("value").notNullable();

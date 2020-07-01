@@ -3,7 +3,12 @@ const db = require("./managerModel");
 const router = express.Router();
 const axios = require("axios");
 
-router.get("/manage", (req, res) => {
+
+
+
+
+// Get all records in manage table
+router.get("/", (req, res) => {
   db.get()
     .then(manage => {
       res.status(200).json(manage);
@@ -13,9 +18,12 @@ router.get("/manage", (req, res) => {
     });
 });
 
-router.post("/manage", (req, res) => {
-  let reqBody = req.body;
 
+
+
+// Add record to manage table
+router.post("/", (req, res) => {
+  let reqBody = req.body;
   db.add(reqBody)
     .then(info => {
       res.status(201).json(info);
@@ -25,9 +33,11 @@ router.post("/manage", (req, res) => {
     });
 });
 
-router.get("/manage/:id", async (req, res) => {
-  const { id } = req.params;
 
+
+//Get records by user id
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
   try {
     const info = await db.getByUserId(id);
     res.status(200).json(info);
@@ -36,37 +46,36 @@ router.get("/manage/:id", async (req, res) => {
   }
 });
 
-router.get("/manage/ds/:id", async (req, res) => {
+
+
+
+// Should be by user id ?
+router.get("/ds/:id", async (req, res) => {
   const id = req.params.id;
-  // console.log('id',id);
   const requestOptions = {
     headers: { "Content-Type": "application/json" }
   };
-  // console.log('requestOptions',requestOptions);
-
   try {
     const userbyid = await db.getByUserId(id);
     const userbyidminusid = userbyid.map(data => delete data.user_id);
     console.log("userbyid", userbyid);
-
     const data = await axios.post(
       "http://diabetes-manager-app.herokuapp.com/",
       userbyid,
       requestOptions
     );
-
     console.log("diabetesdata", data);
     res.status(200).json(data.data);
   } catch (err) {
     console.log(err);
     res.status(500).json(err.message);
   }
-  //console.log(req.body)
 });
 
-router.delete("/manage/:id", (req, res) => {
-  const id = req.params.id;
 
+// Delete record in manage table by id (not by user id)
+router.delete("/:id", (req, res) => {
+  const id = req.params.id;
   db.remove(id)
     .then(users => {
       res.status(200).json({ message: "it was removed" });
@@ -78,7 +87,11 @@ router.delete("/manage/:id", (req, res) => {
     });
 });
 
-router.put("/manage/:id", (req, res) => {
+
+
+
+// Put record to manage table by id (not by user id)
+router.put("/:id", (req, res) => {
   const id = req.params.id;
   const actionbod = req.body;
   console.log(id);
