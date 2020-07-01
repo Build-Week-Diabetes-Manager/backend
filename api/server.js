@@ -20,7 +20,7 @@ server.use( morgan('dev'));
 
 //SANITY CHECk ⬇︎
 server.get( '/' , ( req , res ) => {
-    res.status(200).json({ message: 'Sup ✌🏼 -Server' })
+    res.status(200).json({ message: 'Sup ✌🏼 -Server 7/1/20' })
 });
 
 //APPLYING ROUTES ⬇︎
