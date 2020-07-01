@@ -24,7 +24,7 @@ server.get( '/' , ( req , res ) => {
 });
 
 //APPLYING ROUTES ⬇︎
- server.use( '/api/manager'  , restricted , managerRoute);
+ server.use( '/api/manager' , managerRoute);
  server.use( '/api/users' , userRoute );
 
 

@@ -55,7 +55,7 @@ router.post("/login", (req, res) => {
   }
 });
 
-router.get("/users", (req, res) => {
+router.get("/", (req, res) => {
   Users.get()
     .then(manage => {
       res.status(200).json(manage);
